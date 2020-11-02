@@ -13,4 +13,18 @@ const addItem = (items) => {
   };
 };
 
+export const removeItem = (items) => {
+  return {
+    type: cartActionTypes.REMOVE_ITEM,
+    payload: items,
+  };
+};
+
+export const clearItemFromCart = (items) => {
+  return {
+    type: cartActionTypes.CLEAR_ITEM_FROM_CART,
+    payload: items,
+  };
+};
+
 export { toggleCartHidden, addItem };
