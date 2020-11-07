@@ -15,6 +15,7 @@ import Checkout from "./pages/checkout/checkout.component";
 import Header from "./components/header/header.components";
 
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "./redux/user/user.selector";
 

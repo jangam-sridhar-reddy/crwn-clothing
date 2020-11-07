@@ -10,7 +10,7 @@ import "./collection.styles.scss";
 
 
 const CollectionPage = ({ collections }) => {
-    console.log(collections);
+
     const { title, items } = collections;
     return (
         <div className="collection-page">
