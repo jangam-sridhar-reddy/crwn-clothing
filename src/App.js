@@ -5,7 +5,11 @@ import { Switch, Route, Redirect } from "react-router-dom";
 
 import { connect } from "react-redux";
 
-import { setUserAction } from "./redux/user/user.action";
+import { createStructuredSelector } from "reselect";
+
+import { checkUserStatus } from "./redux/user/user.action";
+
+import { selectCurrentUser } from "./redux/user/user.selector";
 
 import HomePage from "./pages/homepage/homepage.component";
 import ShopPage from "./pages/shop-page/shop-page.component";
@@ -14,31 +18,13 @@ import Checkout from "./pages/checkout/checkout.component";
 
 import Header from "./components/header/header.components";
 
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
-
-import { createStructuredSelector } from "reselect";
-import { selectCurrentUser } from "./redux/user/user.selector";
-
 class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    const { setUserAction } = this.props;
+    const { checkUserStatus } = this.props;
 
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
-
-        userRef.onSnapshot((snapShot) => {
-          setUserAction({
-            id: snapShot.id,
-            ...snapShot.data(),
-          });
-        });
-      } else {
-        setUserAction(userAuth);
-      }
-    });
+    checkUserStatus();
   }
 
   componentWillUnmount() {
@@ -71,7 +57,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setUserAction: (user) => dispatch(setUserAction(user)),
+  checkUserStatus: () => dispatch(checkUserStatus()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

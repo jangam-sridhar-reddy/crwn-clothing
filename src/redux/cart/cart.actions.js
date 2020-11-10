@@ -27,4 +27,10 @@ export const clearItemFromCart = (items) => {
   };
 };
 
+export const clearCart = () => {
+  return {
+    type: cartActionTypes.CLEAR_CART,
+  };
+};
+
 export { toggleCartHidden, addItem };
